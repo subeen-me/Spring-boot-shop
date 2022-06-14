@@ -37,7 +37,7 @@ class ItemServiceTest {
     @Autowired
     ItemImgRepository itemImgRepository;
 
-    List<MultipartFile> createMultipartFiles() throws Exception {
+    List<MultipartFile> createMultipartFiles() throws Exception { //MockMultipartFile 클래스를 이용하여 가짜 MultipartFile 리스트를 만들어 반환해주는 메소드
 
         List<MultipartFile> multipartFileList = new ArrayList<>();
 
@@ -56,6 +56,8 @@ class ItemServiceTest {
     @DisplayName("상품 등록 테스트")
     @WithMockUser(username = "admin", roles = "ADMIN")
     void saveItem() throws Exception {
+
+        //상품 등록 화면에서 입력받는 상품 데이터를 세팅
         ItemFormDto itemFormDto = new ItemFormDto();
         itemFormDto.setItemNm("테스트상품");
         itemFormDto.setItemSellStatus(ItemSellStatus.SELL);
@@ -70,6 +72,7 @@ class ItemServiceTest {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(EntityNotFoundException::new);
 
+        //입력한 상품 데이터와 실제로 저장된 상품 데이터가 같은 지 확인
         assertEquals(itemFormDto.getItemNm(), item.getItemNm());
         assertEquals(itemFormDto.getItemSellStatus(),
                 item.getItemSellStatus());
@@ -77,7 +80,7 @@ class ItemServiceTest {
         assertEquals(itemFormDto.getPrice(), item.getPrice());
         assertEquals(itemFormDto.getStockNumber(), item.getStockNumber());
         assertEquals(multipartFileList.get(0).getOriginalFilename(),
-                itemImgList.get(0).getOriImgName());
+                itemImgList.get(0).getOriImgName()); //상품 이미지는 첫 번째 파일의 원본 이미지 파일 이름만 같은지 확인
     }
 
 }
