@@ -16,7 +16,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
         if(authentication != null) {
             userId = authentication.getName(); //현재 로그인한 사용자의 정보를 조회하여 사용자의 이름을 등록자와 수정자로 지정
         }
-        return Optional.of(userId);
+        return Optional.of(userId); //value가 null인 경우 NPE 에러 던진다
 
     }
 }

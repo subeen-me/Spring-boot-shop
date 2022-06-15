@@ -37,8 +37,8 @@ public class ItemImgService {
         }
 
         //상품 이미지 정보 저장
-        //imgName:실제 로컬에 저장된 상품 이미지 파일의 이름
         //oriImgName:업로드했던 상품 이미지 파일의 원래 이름
+        //imgName:실제 로컬에 저장된 상품 이미지 파일의 이름
         //imgUrl:업로드 결과 로컬에 저장된 상품 이미지 파일을 불러오는 경로
         itemImg.updateItemImg(oriImgName, imgName, imgUrl);
         itemImgRepository.save(itemImg);

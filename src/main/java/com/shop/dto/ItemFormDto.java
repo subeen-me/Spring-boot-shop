@@ -43,6 +43,7 @@ public class ItemFormDto {
         return modelMapper.map(this, Item.class);
     }
 
+    //static 메서드로 entity->dto 변환
     public static ItemFormDto of(Item item) {
         return modelMapper.map(item, ItemFormDto.class);
     }
