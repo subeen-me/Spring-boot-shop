@@ -31,4 +31,30 @@ public class Order extends BaseEntity{
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    //orderItems 에는 주문 상품 정보를 담는다. orderItem 객체를 order 객체의 orderItems 에 추가한다.
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this); //Order 엔티티와 OrderItem 엔티티가 양방향 참조 관계이므로 orderItem 객체에도 order 객체를 세팅한다.
+    }
+
+    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+        Order order = new Order();
+        order.setMember(member);
+        //장바구니 페이지에서는 한 번에 여러개의 상품을 주문. 여러 개의 주문 상품을 담을 수 있도록 리스트형태로 파라미터값을 받으며 주문 객체에 orderItem 객체를 추가
+        for(OrderItem orderItem : orderItemList) {
+            order.addOrderItem(orderItem);
+        }
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for(OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
+
 }

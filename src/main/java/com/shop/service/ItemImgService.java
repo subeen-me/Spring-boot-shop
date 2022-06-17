@@ -33,7 +33,7 @@ public class ItemImgService {
             //사용자가 상품의 이미지를 등록했다면 저장할 경로와 파일의 이름, 파일을 파일의 바이트 배열을 파일 업로드 파라미터로
             //uploadFile 메소드를 호출. 호출 결과 로컬에 저장된 파일의 이름을 imgName 변수에 저장한다.
             imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
-            imgUrl = "/image/item" + imgName; //저장한 상품 이미지를 불러올 경로 설정.
+            imgUrl = "/images/item/" + imgName; //저장한 상품 이미지를 불러올 경로 설정. webMvcConfig 참고
         }
 
         //상품 이미지 정보 저장
